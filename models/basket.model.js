@@ -1,5 +1,19 @@
 const mongoose = require("mongoose");
-const AutoIncrement = require("mongoose-sequence")(mongoose);
+
+const ProductSchema = new mongoose.Schema({
+  productId: {
+    type: Number,
+    required: true,
+  },
+  quantity: {
+    type: Number,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+});
 
 const BasketSchema = new mongoose.Schema(
   {
@@ -7,15 +21,18 @@ const BasketSchema = new mongoose.Schema(
       type: Number,
       unique: true,
     },
-    basketId: {
+    products: [ProductSchema],
+    totalQuantity: {
       type: Number,
-      unique: true,
+      default: 0,
+    },
+    totalSum: {
+      type: Number,
+      default: 0,
     },
   },
   { timestamps: true }
 );
-
-BasketSchema.plugin(AutoIncrement, { inc_field: "basketId" });
 
 const Basket = mongoose.model("Basket", BasketSchema);
 
