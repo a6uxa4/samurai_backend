@@ -1,13 +1,88 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Samurai",
-    "description": "Samurai Sushi",
+    "title": "Samurai Sushi API",
+    "description": "API for managing baskets in the Samurai Sushi application.",
     "version": "1.0.0"
   },
   "host": "localhost:8080",
   "basePath": "/",
   "schemes": ["http", "https"],
-  "paths": {},
-  "definitions": {}
+  "paths": {
+    "/basket": {
+      "post": {
+        "tags": ["Basket"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "product",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Basket"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Product": {
+      "type": "object",
+      "properties": {
+        "productId": {
+          "type": "integer"
+        },
+        "quantity": {
+          "type": "integer"
+        },
+        "price": {
+          "type": "number",
+          "format": "float"
+        }
+      },
+      "required": ["productId", "quantity", "price"]
+    },
+    "Basket": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Product"
+          }
+        },
+        "totalQuantity": {
+          "type": "integer"
+        },
+        "totalSum": {
+          "type": "number",
+          "format": "float"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
 }

@@ -16,7 +16,7 @@ const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./public/swagger.json");
 
-const personRoute = require("./routes/basket.route");
+const basketRoute = require("./routes/basket.route");
 
 dotenv.config();
 const app = express();
@@ -43,7 +43,7 @@ app.use(
 app.use(express.json({ limit: "10mb" }));
 
 // ROUTE
-app.use("/basket", personRoute);
+app.use("/basket", basketRoute);
 
 // SWAGGER
 app.use("/swagger-ui", swaggerUi.serve, swaggerUi.setup(swaggerDocument));

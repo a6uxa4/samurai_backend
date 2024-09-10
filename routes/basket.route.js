@@ -1,5 +1,11 @@
 const express = require("express");
-const {} = require("../controllers/basket.controller");
+const {
+  addToBasket,
+  getBasketByUserId,
+} = require("../controllers/basket.controller");
 const router = express.Router();
+
+router.post("", addToBasket);
+router.get("", getBasketByUserId);
 
 module.exports = router;
