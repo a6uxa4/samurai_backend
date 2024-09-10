@@ -35,6 +35,24 @@
             }
           }
         }
+      },
+      "get": {
+        "tags": ["Basket"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Basket"
+            }
+          }
+        }
       }
     }
   },
