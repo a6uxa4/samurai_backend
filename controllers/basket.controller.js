@@ -2,7 +2,7 @@ const { Basket } = require("../models/basket.model");
 
 const addToBasket = async (req, res, next) => {
   try {
-    const userId = Number(req.query.userId);
+    const userId = req.query.userId;
     const { productId, quantity, price } = req.body;
     let basket = await Basket.findOne({ userId });
 
@@ -43,7 +43,7 @@ const addToBasket = async (req, res, next) => {
 
 const getBasketByUserId = async (req, res, next) => {
   try {
-    const userId = Number(req.query.userId);
+    const userId = req.query.userId;
     const basket = await Basket.findOne({ userId });
 
     res.status(200).json(basket);

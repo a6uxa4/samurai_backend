@@ -18,7 +18,7 @@ const ProductSchema = new mongoose.Schema({
 const BasketSchema = new mongoose.Schema(
   {
     userId: {
-      type: Number,
+      type: String,
       unique: true,
     },
     products: [ProductSchema],
