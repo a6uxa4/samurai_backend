@@ -52,4 +52,33 @@ const getBasketByUserId = async (req, res, next) => {
   }
 };
 
-module.exports = { addToBasket, getBasketByUserId };
+const deleteBasketByProductId = async (req, res, next) => {
+  try {
+    const userId = req.query.userId;
+    const { productId } = req.params;
+
+    let basket = await Basket.findOne({ userId });
+
+    const productIndex = basket.products.findIndex(
+      (p) => p.productId === Number(productId)
+    );
+
+    basket.products.splice(productIndex, 1);
+
+    basket.totalQuantity = basket.products.reduce(
+      (acc, p) => acc + p.quantity,
+      0
+    );
+    basket.totalSum = basket.products.reduce(
+      (acc, p) => acc + p.quantity * p.price,
+      0
+    );
+
+    await basket.save();
+    res.status(200).json({ message: "Продукт удален из корзины", basket });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { addToBasket, getBasketByUserId, deleteBasketByProductId };
